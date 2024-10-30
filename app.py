@@ -52,16 +52,20 @@ for i in range(len(st.session_state.add_items)):
 
     with col1:
         length = st.number_input("Enter the length", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
 
     with col2:
         breadth = st.number_input("Enter the breadth", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
+        st.session_state.add_items[i]['breadth'] = breadth
 
     with col3:
         thickness = st.number_input("Enter the thickness", value=float(items['thickness']), min_value=0.0,
                                     key=f'thickness_{i}')
+        st.session_state.add_items[i]['thickness'] = thickness
 
     with col4:
         width = st.number_input("Enter the width", value=float(items['width']), min_value=0.0, key=f'width_{i}')
+        st.session_state.add_items[i]['width'] = width
 
     with col5:
         st.write(f'Volume of item {i + 1}')
