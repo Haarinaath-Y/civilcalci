@@ -15,7 +15,7 @@ default_values = {"item_name": None, "length": 1, "breadth": 1, "thickness": 1, 
 
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
-    st.session_state.add_items = [default_values]  # List to store add items
+    st.session_state.add_items = [default_values.copy()]  # List to store add items
 
 
 # Add a new empty add items row
@@ -32,7 +32,7 @@ def remove_item_row(index):
 
 # Function to reset session state to default values
 def reset_session_state():
-    st.session_state.add_items = [{"item_name": None, "length": 1, "breadth": 1, "thickness": 1, "width": 1}]
+    st.session_state.add_items = [default_values.copy()]
 
 
 total_sum = 0
