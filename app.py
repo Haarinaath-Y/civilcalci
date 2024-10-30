@@ -1,4 +1,5 @@
 import streamlit as st
+from pandas import DataFrame
 
 st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/calculate:", layout="wide")
 
@@ -86,7 +87,13 @@ for item in st.session_state.add_items:
     st.write(f"The Volume of {item['item_name']} is {item['volume']}")
 
 
+# Create the dictionary with item names as keys and volumes as values
 extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_state.add_items}
-st.dataframe(extra_payment_dict)
+
+# Convert to DataFrame
+df = DataFrame(list(extra_payment_dict.items()), columns=["Item Name", "Amount"])
+
+# Display the DataFrame in Streamlit
+st.dataframe(df)
 
 st.success(f"Total Volume of all items: **{total_sum}**")
