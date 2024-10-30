@@ -27,6 +27,7 @@ def remove_item_row(index):
 
 
 item_name = st.text_input("Enter item name")
+total_sum = 0
 # Display current add items
 for i, items in enumerate(st.session_state.add_items):
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
@@ -42,6 +43,7 @@ for i, items in enumerate(st.session_state.add_items):
         st.write(f'Volume of item {i+1}')
         a = func()
         st.text(a)
+        total_sum += a
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
         if st.button(":material/add:", key=f"add_{i}"):
@@ -53,9 +55,5 @@ for i, items in enumerate(st.session_state.add_items):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
 
-total_sum = 0
-for volume in a:
-    b = int(volume)
-    total_sum += b
 
 st.write("Total Sum:", total_sum)
