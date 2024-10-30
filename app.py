@@ -86,7 +86,7 @@ for item in st.session_state.add_items:
     st.write(f"The Volume of {item['item_name']} is {item['volume']}")
 
 
-extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_state.add_items if item['item_name']}
+extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_state.add_items}
 st.write(extra_payment_dict)
 
 st.success(f"Total Volume of all items: **{total_sum}**")
