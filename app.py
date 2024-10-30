@@ -27,7 +27,7 @@ def add_item_row():
 def remove_item_row(index):
     if index != 0 and index < len(st.session_state.add_items):
         del st.session_state.add_items[index]  # Delete entry at the specified index
-    elif index == 0:
+    elif index == 0 and len(st.session_state.add_items) == 1:
         st.session_state.add_items = [default_values]
 
 
