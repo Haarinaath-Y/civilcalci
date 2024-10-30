@@ -17,7 +17,7 @@ if 'add_items' not in st.session_state:
 
 # Add a new empty add items row
 def add_item_row():
-    st.session_state.add_items.append({"month": None, "amount": 0})
+    st.session_state.add_items.append({"length": 1, "breadth": 1, 'thickness': 1, 'width': 1})
 
 
 # Remove an add items row by index
@@ -57,4 +57,3 @@ for i, items in enumerate(st.session_state.add_items):
 if st.button("👉 Click here to Add Extra Payments"):
     add_item_row()
     st.rerun()
-
