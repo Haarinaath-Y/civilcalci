@@ -12,7 +12,7 @@ def func():
 
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
-    st.session_state.add_items = []  # List to store add items
+    st.session_state.add_items = [{"length":1,"breadth":1,"thickness":1,"width":1}]  # List to store add items
 
 
 # Add a new empty add items row
@@ -51,10 +51,5 @@ for i, items in enumerate(st.session_state.add_items):
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
-
-# Add new extra payment row button
-if st.button("Start"):
-    add_item_row()
-    st.rerun()
 
 st.write(st.session_state.add_items)
