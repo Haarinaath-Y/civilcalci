@@ -87,8 +87,8 @@ for i in range(len(st.session_state.add_items)):
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-for item in st.session_state.add_items:
-    st.write(f"The Volume of {item['item_name']} is {item['volume']}")
+# for item in st.session_state.add_items:
+#     st.write(f"The Volume of {item['item_name']} is {item['volume']}")
 
 
 # Convert list of dictionaries to DataFrame with additional columns
