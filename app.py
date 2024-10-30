@@ -83,5 +83,5 @@ for i in range(len(st.session_state.add_items)):
 
 
 for item in st.session_state.add_items:
-    st.write(f"The volume of {item['item_name']} is {item['volume']}")
+    st.info(f"The Volume of {item['item_name']} is {item['volume']}")
 st.success(f"Total Volume of all items: **{total_sum}**")
