@@ -41,7 +41,7 @@ for i, items in enumerate(st.session_state.add_items):
     with col5:
         st.write(f'Volume of item {i+1}')
         i = func()
-        st.text(1)
+        st.text(i)
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
         if st.button(":material/add:", key=f"add_{i}"):
