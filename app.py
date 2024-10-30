@@ -48,6 +48,6 @@ for i, items in enumerate(st.session_state.add_items):
             st.rerun()  # Rerun to refresh the UI after addition
     with col7:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
-        if st.button(":material/delete:", key=f"remove_{i}"):
+        if st.button(f"Remove {i} :material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
