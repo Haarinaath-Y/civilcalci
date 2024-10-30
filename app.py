@@ -27,6 +27,7 @@ def remove_item_row(index):
 
 
 item_name = st.text_input("Enter item name")
+add_item_row()
 # Display current add items
 for i, items in enumerate(st.session_state.add_items):
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.2, 0.2])
@@ -39,7 +40,7 @@ for i, items in enumerate(st.session_state.add_items):
     with col4:
         width = st.number_input("Enter the width", value=1, key=f'width_{i}')
     with col5:
-        st.write('Area')
+        st.write(f'Volume of item {i}')
         st.text(func())
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
@@ -51,9 +52,3 @@ for i, items in enumerate(st.session_state.add_items):
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
-
-
-# Add new extra payment row button
-if st.button("👉 Click here to Add Extra Payments"):
-    add_item_row()
-    st.rerun()
