@@ -87,11 +87,15 @@ for item in st.session_state.add_items:
     st.write(f"The Volume of {item['item_name']} is {item['volume']}")
 
 
-# Create the dictionary with item names as keys and volumes as values
-extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_state.add_items}
-
-# Convert to DataFrame
-df = DataFrame(list(extra_payment_dict.items()), columns=["Item Name", "Amount"])
+# Convert list of dictionaries to DataFrame with additional columns
+df = DataFrame({
+    "Item Name": [item["item_name"] for item in st.session_state.add_items],
+    "Length": [item["length"] for item in st.session_state.add_items],
+    "Breadth": [item["breadth"] for item in st.session_state.add_items],
+    "Thickness": [item["thickness"] for item in st.session_state.add_items],
+    "Width": [item["width"] for item in st.session_state.add_items],
+    "Volume": [item["volume"] for item in st.session_state.add_items]
+})
 
 # Display the DataFrame in Streamlit
 st.dataframe(df, hide_index=True)
