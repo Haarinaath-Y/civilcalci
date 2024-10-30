@@ -10,7 +10,14 @@ def calculate_volume(length, breadth, thickness, width):
     return length * breadth * thickness * width
 
 
-default_values = {"item_name": None, "length": 1, "breadth": 1, "thickness": 1, "width": 1}
+# Update default values to floats
+default_values = {
+    "item_name": None,
+    "length": 1.0,  # Changed to float
+    "breadth": 1.0,  # Changed to float
+    "thickness": 1.0,  # Changed to float
+    "width": 1.0  # Changed to float
+}
 
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
@@ -36,13 +43,13 @@ for i, items in enumerate(st.session_state.add_items):
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
     with col1:
-        length = st.number_input("Enter the length", value=items['length'], min_value=0.0, key=f'length_{i}')
+        length = st.number_input("Enter the length", value=float(items['length']), min_value=0.0, key=f'length_{i}')
     with col2:
-        breadth = st.number_input("Enter the breadth", value=items['breadth'], min_value=0.0, key=f'breadth_{i}')
+        breadth = st.number_input("Enter the breadth", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
     with col3:
-        thickness = st.number_input("Enter the thickness", value=items['thickness'], min_value=0.0, key=f'thickness_{i}')
+        thickness = st.number_input("Enter the thickness", value=float(items['thickness']), min_value=0.0, key=f'thickness_{i}')
     with col4:
-        width = st.number_input("Enter the width", value=items['width'], min_value=0.0, key=f'width_{i}')
+        width = st.number_input("Enter the width", value=float(items['width']), min_value=0.0, key=f'width_{i}')
     with col5:
         st.write(f'Volume of item {i+1}')
         volume = calculate_volume(length, breadth, thickness, width)
