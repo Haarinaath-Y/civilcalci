@@ -22,5 +22,5 @@ with col3:
 with col4:
     width = st.number_input("Enter the width", value=1)
 with col5:
-    st.info(func())
+    st.write(func())
 
