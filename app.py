@@ -65,6 +65,7 @@ for i in range(len(st.session_state.add_items)):
     with col5:
         st.write(f'Volume of item {i + 1}')
         volume = calculate_volume(length, breadth, thickness, width)
+        st.session_state.add_items[i]['volume'] = volume
         st.text(volume)
         total_sum += volume
 
@@ -82,5 +83,5 @@ for i in range(len(st.session_state.add_items)):
 
 
 for item in st.session_state.add_items:
-    st.write(item['item_name'])
+    st.write(f"The volume of {item['item_name']} is {item['volume']}")
 st.success(f"Total Volume of all items: **{total_sum}**")
