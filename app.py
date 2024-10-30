@@ -94,6 +94,6 @@ extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_s
 df = DataFrame(list(extra_payment_dict.items()), columns=["Item Name", "Amount"])
 
 # Display the DataFrame in Streamlit
-st.dataframe(df)
+st.dataframe(df, hide_index=True)
 
 st.success(f"Total Volume of all items: **{total_sum}**")
