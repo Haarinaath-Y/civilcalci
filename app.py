@@ -56,4 +56,4 @@ for i, items in enumerate(st.session_state.add_items):
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-st.info("Total Volume of all items:", total_sum)
+st.success(f"Total Volume of all items: {total_sum}")
