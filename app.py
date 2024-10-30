@@ -10,20 +10,25 @@ def func():
     return a
 
 
+default_values = {"item_name": None, "length": 1, "breadth": 1, "thickness": 1, "width": 1}
+
+
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
-    st.session_state.add_items = [{"item_name": None, "length": 1, "breadth": 1, "thickness": 1, "width": 1}]  # List to store add items
+    st.session_state.add_items = [default_values]  # List to store add items
 
 
 # Add a new empty add items row
 def add_item_row():
-    st.session_state.add_items.append({"item_name": None, "length": 1, "breadth": 1, 'thickness': 1, 'width': 1})
+    st.session_state.add_items.append(default_values)
 
 
 # Remove an add items row by index
 def remove_item_row(index):
     if index != 0 and index < len(st.session_state.add_items):
         del st.session_state.add_items[index]  # Delete entry at the specified index
+    elif index == 0:
+        st.session_state.add_items = [default_values]
 
 
 total_sum = 0
