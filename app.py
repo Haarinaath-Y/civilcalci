@@ -29,7 +29,7 @@ def remove_item_row(index):
 item_name = st.text_input("Enter item name")
 # Display current add items
 for i, items in enumerate(st.session_state.add_items):
-    col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.2, 0.2, 0.2])
+    col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.2, 0.2])
     with col1:
         length = st.number_input("Enter the length", value=1, key=f'length_{i}')
     with col2:
