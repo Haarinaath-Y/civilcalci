@@ -101,6 +101,7 @@ df = DataFrame({
     "Volume": [item["volume"] for item in st.session_state.add_items]
 })
 
+st.subheader('MS Steel Calculation Details', divider=True)
 # Display the DataFrame in Streamlit
 st.dataframe(df, hide_index=True)
 
