@@ -29,7 +29,7 @@ def remove_item_row(index):
 total_sum = 0
 # Display current add items
 for i, items in enumerate(st.session_state.add_items):
-    item_name = st.text_input("Enter item name", key=f"item_name_{i}")
+    item_name = st.text_input(f"Enter item {i}", key=f"item_name_{i}")
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
     with col1:
