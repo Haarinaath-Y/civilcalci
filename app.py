@@ -22,7 +22,7 @@ def add_item_row():
 
 # Remove an add items row by index
 def remove_item_row(index):
-    if index < len(st.session_state.add_items):
+    if index != 0 and index < len(st.session_state.add_items):
         del st.session_state.add_items[index]  # Delete entry at the specified index
 
 
@@ -39,7 +39,7 @@ for i, items in enumerate(st.session_state.add_items):
     with col4:
         width = st.number_input("Enter the width", value=1, key=f'width_{i}')
     with col5:
-        st.write(f'Volume of item {i}')
+        st.write(f'Volume of item {i+1}')
         st.text(func())
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
