@@ -12,12 +12,12 @@ def func():
 
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
-    st.session_state.add_items = [{"length": 1, "breadth": 1, "thickness": 1, "width": 1}]  # List to store add items
+    st.session_state.add_items = [{"item_name": None, "length": 1, "breadth": 1, "thickness": 1, "width": 1}]  # List to store add items
 
 
 # Add a new empty add items row
 def add_item_row():
-    st.session_state.add_items.append({"length": 1, "breadth": 1, 'thickness': 1, 'width': 1})
+    st.session_state.add_items.append({"item_name": None, "length": 1, "breadth": 1, 'thickness': 1, 'width': 1})
 
 
 # Remove an add items row by index
@@ -26,10 +26,11 @@ def remove_item_row(index):
         del st.session_state.add_items[index]  # Delete entry at the specified index
 
 
-item_name = st.text_input("Enter item name")
 total_sum = 0
 # Display current add items
 for i, items in enumerate(st.session_state.add_items):
+    item_name = st.text_input("Enter item name", key=f"item_name_{i}")
+
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
     with col1:
         length = st.number_input("Enter the length", value=1, key=f'length_{i}')
