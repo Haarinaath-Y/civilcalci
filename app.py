@@ -12,7 +12,7 @@ st.title("Civil Material Calculator")
 
 item_name = st.text_input("Enter item name")
 
-col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1])
+col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 0.5])
 with col1:
     length = st.number_input("Enter the length", value=1)
 with col2:
