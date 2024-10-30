@@ -23,12 +23,15 @@ def add_item_row():
     st.session_state.add_items.append(default_values)
 
 
-# Remove an add items row by index
+# Function to remove an item row by index with specific handling for index 0
 def remove_item_row(index):
-    if index != 0 and index < len(st.session_state.add_items):
-        del st.session_state.add_items[index]  # Delete entry at the specified index
-    elif index == 0 and len(st.session_state.add_items) == 1:
+    # If trying to delete index 0, and it's the only item, reset to default
+    if index == 0 and len(st.session_state.add_items) == 1:
         st.session_state.add_items = [default_values]
+
+    # Delete entry if it's not the first or only entry
+    elif index < len(st.session_state.add_items):
+        del st.session_state.add_items[index]
 
 
 total_sum = 0
