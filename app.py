@@ -40,8 +40,8 @@ for i, items in enumerate(st.session_state.add_items):
         width = st.number_input("Enter the width", value=1, key=f'width_{i}')
     with col5:
         st.write(f'Volume of item {i+1}')
-        i = func()
-        st.text(i)
+        a = func()
+        st.text(a)
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)  # Adjust 'height' as needed
         if st.button(":material/add:", key=f"add_{i}"):
@@ -52,3 +52,9 @@ for i, items in enumerate(st.session_state.add_items):
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
+
+total_sum = 0
+for volume in a:
+    total_sum += volume
+
+st.write("Total Sum:", total_sum)
