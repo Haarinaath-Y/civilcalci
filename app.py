@@ -55,6 +55,7 @@ for i, items in enumerate(st.session_state.add_items):
 
 total_sum = 0
 for volume in a:
-    total_sum += volume
+    b = int(volume)
+    total_sum += b
 
 st.write("Total Sum:", total_sum)
