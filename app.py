@@ -5,10 +5,16 @@ st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/
 st.title("Civil Material Calculator")
 
 item_name = st.text_input("Enter item name")
-length = st.number_input("Enter the length", value=1)
-breadth = st.number_input("Enter the breadth", value=1)
-thickness = st.number_input("Enter the thickness", value=1)
-width = st.number_input("Enter the width", value=1)
+
+col1, col2, col3, col4 = st.columns([1, 1, 1, 1])
+with col1:
+    length = st.number_input("Enter the length", value=1)
+with col2:
+    breadth = st.number_input("Enter the breadth", value=1)
+with col3:
+    thickness = st.number_input("Enter the thickness", value=1)
+with col4:
+    width = st.number_input("Enter the width", value=1)
 
 
 def func():
