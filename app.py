@@ -87,6 +87,6 @@ for item in st.session_state.add_items:
 
 
 extra_payment_dict = {item['item_name']: item['volume'] for item in st.session_state.add_items}
-st.write(extra_payment_dict)
+st.dataframe(extra_payment_dict)
 
 st.success(f"Total Volume of all items: **{total_sum}**")
