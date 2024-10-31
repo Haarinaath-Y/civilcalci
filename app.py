@@ -170,6 +170,48 @@ def round_steel_bar():
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
+def flat_bar():
+
+    # Function to calculate the Weight
+    def calculate_weight(l, t, b):
+        return b*t*l/1000000*7850
+
+    total_bar_sum = 0
+    col1, col2, col3, col4, col5, col6 = st.columns([1.33, 1.33, 1.33, 0.5, 0.15, 0.15])
+
+    with col1:
+        breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
+        st.session_state.add_items[i]['breadth'] = breadth
+
+    with col2:
+        thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
+                                    key=f'thickness_{i}')
+        st.session_state.add_items[i]['thickness'] = thickness
+
+    with col3:
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
+
+    with col4:
+        st.write(f'Weight of item {i + 1}')
+        weight = calculate_weight(length, thickness, breadth)
+        st.session_state.add_items[i]['weight'] = weight
+        st.text(weight)
+        total_bar_sum += weight
+
+    with col5:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/add:", key=f"add_{i}"):
+            add_item_row()
+            st.rerun()  # Rerun to refresh the UI after addition
+
+    with col6:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/delete:", key=f"remove_{i}"):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
+
 item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars']
 
 # Display current add items
@@ -192,6 +234,9 @@ for i in range(len(st.session_state.add_items)):
 
     if st.session_state.add_items[i]['item_type'] == 'Round Steel Bars':
         round_steel_bar()
+
+    if st.session_state.add_items[i]['item_type'] == 'Flat Bars':
+        flat_bar()
 
     st.divider()
 
