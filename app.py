@@ -92,7 +92,7 @@ def round_bar_func():
         return ln * dia
 
     total_sum = 0
-    col1, col2, col3, col4, col5 = st.columns([1, 1, 0.5, 0.1, 0.1])
+    col1, col2, col3, col4, col5 = st.columns([1, 1, 0.2, 0.1, 0.1])
 
     with col1:
         length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
