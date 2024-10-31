@@ -5,7 +5,7 @@ st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measu
                    initial_sidebar_state='collapsed')
 st.sidebar.success("Navigate yourself")
 
-st.title("MS Weight Calculator")
+st.title("📏 MS Weight Calculator")
 
 total_sum = 0
 
