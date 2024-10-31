@@ -40,11 +40,11 @@ def remove_item_row(index):
         del st.session_state.add_items[index]
 
 
-def hollow_bar_func():
+def rec_hollow_func():
 
     # Function to calculate the Weight
-    def calculate_weight(ln, br, thick, wid):
-        return (ln*1000) * br * thick * wid
+    def calculate_weight(l, b, t, d):
+        return ((b*d) - ((b-(2*t))*(d-(2*t))))*l/1000000*7850
 
     total_bar_sum = 0
 
@@ -87,7 +87,50 @@ def hollow_bar_func():
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-def round_bar_func():
+def cir_hollow_func():
+
+    # Function to calculate the Weight
+    def calculate_weight(ln, dia):
+        return (ln*1000) * dia
+
+    total_bar_sum = 0
+    col1, col2, col3, col4, col5, col6 = st.columns([1.33, 1.33, 1.33, 0.5, 0.15, 0.15])
+
+    with col1:
+        diameter = st.number_input("Enter the diameter (mm)", value=float(items['diameter']), min_value=0.0,
+                                   key=f'diameter_{i}')
+        st.session_state.add_items[i]['diameter'] = diameter
+
+    with col2:
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
+
+    with col3:
+        thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
+                                    key=f'thickness_{i}')
+        st.session_state.add_items[i]['thickness'] = thickness
+
+    with col4:
+        st.write(f'Weight of item {i + 1}')
+        weight = calculate_weight(length, diameter)
+        st.session_state.add_items[i]['weight'] = weight
+        st.text(weight)
+        total_bar_sum += weight
+
+    with col5:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/add:", key=f"add_{i}"):
+            add_item_row()
+            st.rerun()  # Rerun to refresh the UI after addition
+
+    with col6:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/delete:", key=f"remove_{i}"):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
+
+def round_steel_bar():
 
     # Function to calculate the Weight
     def calculate_weight(ln, dia):
@@ -125,7 +168,7 @@ def round_bar_func():
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-item_types = ['Rectangular Hollow Section', 'Circular Hollow Section']
+item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars']
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
@@ -140,10 +183,13 @@ for i in range(len(st.session_state.add_items)):
         st.session_state.add_items[i]['item_type'] = item_type
 
     if st.session_state.add_items[i]['item_type'] == 'Rectangular Hollow Section':
-        hollow_bar_func()
+        rec_hollow_func()
 
     if st.session_state.add_items[i]['item_type'] == 'Circular Hollow Section':
-        round_bar_func()
+        cir_hollow_func()
+
+    if st.session_state.add_items[i]['item_type'] == 'Round Steel Bars':
+        round_steel_bar()
 
     st.divider()
 
