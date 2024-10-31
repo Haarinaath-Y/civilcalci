@@ -92,7 +92,7 @@ def round_bar_func():
         return ln * dia
 
     total_sum = 0
-    col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 0.1, 0.1])
+    col1, col2, col3, col4, col5 = st.columns([1, 1, 0.5, 0.1, 0.1])
 
     with col1:
         length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
@@ -155,6 +155,7 @@ df = DataFrame({
     "Item Type": [item["item_type"] for item in st.session_state.add_items],
     "Length": [item["length"] for item in st.session_state.add_items],
     "Breadth": [item["breadth"] for item in st.session_state.add_items],
+    "Diameter": [item["diameter"] for item in st.session_state.add_items],
     "Thickness": [item["thickness"] for item in st.session_state.add_items],
     "Width": [item["width"] for item in st.session_state.add_items],
     "Weight": [item["weight"] for item in st.session_state.add_items]
