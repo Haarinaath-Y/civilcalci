@@ -212,7 +212,40 @@ def flat_bar():
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars']
+def square_steel_bar():
+
+    # Function to calculate the Weight
+    def calculate_weight(l, b):
+        return b*b*l/1000000*7850
+
+    total_bar_sum = 0
+    col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
+
+    with col1:
+        breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0,
+                                   key=f'breadth_{i}')
+        st.session_state.add_items[i]['breadth'] = breadth
+
+    with col2:
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
+
+    with col3:
+        st.write(f'Weight of item {i + 1}')
+        weight = calculate_weight(length, breadth)
+        st.session_state.add_items[i]['weight'] = weight
+        st.text(weight)
+        total_bar_sum += weight
+
+    with col4:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/add:", key=f"add_{i}"):
+            add_item_row()
+            st.rerun()  # Rerun to refresh the UI after addition
+
+
+item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars',
+              'Square Steel Bar']
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
@@ -237,6 +270,9 @@ for i in range(len(st.session_state.add_items)):
 
     if st.session_state.add_items[i]['item_type'] == 'Flat Bars':
         flat_bar()
+
+    if st.session_state.add_items[i]['item_type'] == 'Square Steel Bars':
+        square_steel_bar()
 
     st.divider()
 
