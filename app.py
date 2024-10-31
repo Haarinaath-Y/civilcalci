@@ -50,12 +50,12 @@ def hollow_bar_func():
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
 
     with col1:
-        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
-        st.session_state.add_items[i]['length'] = length
-
-    with col2:
         breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
         st.session_state.add_items[i]['breadth'] = breadth
+
+    with col2:
+        depth = st.number_input("Enter the depth (mm)", value=float(items['depth']), min_value=0.0, key=f'depth_{i}')
+        st.session_state.add_items[i]['depth'] = depth
 
     with col3:
         thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
@@ -63,12 +63,12 @@ def hollow_bar_func():
         st.session_state.add_items[i]['thickness'] = thickness
 
     with col4:
-        width = st.number_input("Enter the width (mm)", value=float(items['width']), min_value=0.0, key=f'width_{i}')
-        st.session_state.add_items[i]['width'] = width
+        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
 
     with col5:
         st.write(f'Weight of item {i + 1}')
-        weight = calculate_weight(length, breadth, thickness, width)
+        weight = calculate_weight(length, breadth, thickness, depth)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
@@ -96,13 +96,13 @@ def round_bar_func():
     col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
 
     with col1:
-        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
-        st.session_state.add_items[i]['length'] = length
-
-    with col2:
         diameter = st.number_input("Enter the diameter (mm)", value=float(items['diameter']), min_value=0.0,
                                    key=f'diameter_{i}')
         st.session_state.add_items[i]['diameter'] = diameter
+
+    with col2:
+        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
 
     with col3:
         st.write(f'Weight of item {i + 1}')
@@ -160,7 +160,7 @@ df = DataFrame({
     "Breadth": [item["breadth"] for item in st.session_state.add_items],
     "Diameter": [item["diameter"] for item in st.session_state.add_items],
     "Thickness": [item["thickness"] for item in st.session_state.add_items],
-    "Width": [item["width"] for item in st.session_state.add_items],
+    "Depth": [item["depth"] for item in st.session_state.add_items],
     "Weight": [item["weight"] for item in st.session_state.add_items]
 })
 
