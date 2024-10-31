@@ -243,6 +243,12 @@ def square_steel_bar():
             add_item_row()
             st.rerun()  # Rerun to refresh the UI after addition
 
+    with col5:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/delete:", key=f"remove_{i}"):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
 
 item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars',
               'Square Steel Bar']
