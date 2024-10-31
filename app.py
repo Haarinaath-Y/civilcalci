@@ -164,9 +164,11 @@ df = DataFrame({
     "Weight": [item["weight"] for item in st.session_state.add_items]
 })
 
-st.subheader('MS Steel Calculation Details', divider=True)
 # Display the DataFrame in Streamlit
-st.dataframe(df, hide_index=True)
+if total_sum > 0:
+    st.subheader('MS Steel Calculation Details', divider=True)
+    st.dataframe(df, hide_index=True)
+
 total_sum = df.iloc[:, -1].sum()
 
 st.success(f"Total Weight of all items: **{total_sum}**")
