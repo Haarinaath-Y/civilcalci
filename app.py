@@ -43,7 +43,7 @@ def hollow_bar_func():
 
     # Function to calculate the Weight
     def calculate_weight(ln, br, thick, wid):
-        return ln * br * thick * wid
+        return (ln*1000) * br * thick * wid
 
     total_bar_sum = 0
 
@@ -63,7 +63,7 @@ def hollow_bar_func():
         st.session_state.add_items[i]['thickness'] = thickness
 
     with col4:
-        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
         st.session_state.add_items[i]['length'] = length
 
     with col5:
@@ -90,7 +90,7 @@ def round_bar_func():
 
     # Function to calculate the Weight
     def calculate_weight(ln, dia):
-        return ln * dia
+        return (ln*1000) * dia
 
     total_bar_sum = 0
     col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
@@ -101,7 +101,7 @@ def round_bar_func():
         st.session_state.add_items[i]['diameter'] = diameter
 
     with col2:
-        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
         st.session_state.add_items[i]['length'] = length
 
     with col3:
