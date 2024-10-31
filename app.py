@@ -233,6 +233,7 @@ def square_steel_bar():
     with col3:
         st.write(f'Weight of item {i + 1}')
         weight = calculate_weight(length, breadth)
+        weight = round(weight, 2)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
