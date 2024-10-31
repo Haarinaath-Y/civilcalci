@@ -41,12 +41,19 @@ def remove_item_row(index):
 
 
 total_sum = 0
+item_types = ['Hollow Bar', 'Iron Rebar']
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
     items = st.session_state.add_items[i]  # Get the item at the current index
-    item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{i}")
-    st.session_state.add_items[i]['item_name'] = item_name
+    col_item, col_type = st.columns([1, 1])
+    with col_item:
+        item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{i}")
+        st.session_state.add_items[i]['item_name'] = item_name
+
+    with col_type:
+        item_type = st.selectbox(item_types, key=f"item_type_{i}")
+        st.session_state.add_items[i]['item_type'] = item_type
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
 
