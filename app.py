@@ -5,10 +5,7 @@ st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/
 
 st.title("Civil Material Calculator")
 
-
-# Function to calculate the Weight
-def calculate_weight(ln, br, thick, wid):
-    return ln * br * thick * wid
+total_sum = 0
 
 
 # Update default values to floats
@@ -40,20 +37,13 @@ def remove_item_row(index):
         del st.session_state.add_items[index]
 
 
-total_sum = 0
-item_types = ['Hollow Bar', 'Iron Rebar']
+def hollow_bar_func():
 
-# Display current add items
-for i in range(len(st.session_state.add_items)):
-    items = st.session_state.add_items[i]  # Get the item at the current index
-    col_item, col_type = st.columns([1, 1])
-    with col_item:
-        item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{i}")
-        st.session_state.add_items[i]['item_name'] = item_name
+    # Function to calculate the Weight
+    def calculate_weight(ln, br, thick, wid):
+        return ln * br * thick * wid
 
-    with col_type:
-        item_type = st.selectbox('Select the item type', item_types, key=f"item_type_{i}")
-        st.session_state.add_items[i]['item_type'] = item_type
+    total_sum = 0
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
 
@@ -94,6 +84,65 @@ for i in range(len(st.session_state.add_items)):
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
+def round_bar_func():
+
+    # Function to calculate the Weight
+    def calculate_weight(ln, dia):
+        return ln * dia
+
+    total_sum = 0
+    col1, col2, col3, col4, col5 = st.columns([1, 1, 0.5, 0.15, 0.15])
+
+    with col1:
+        length = st.number_input("Enter the length", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
+
+    with col2:
+        diameter = st.number_input("Enter the diameter", value=float(items['diameter']), min_value=0.0, key=f'diameter_{i}')
+        st.session_state.add_items[i]['diameter'] = diameter
+
+    with col3:
+        st.write(f'Weight of item {i + 1}')
+        weight = calculate_weight(length, diameter)
+        st.session_state.add_items[i]['weight'] = weight
+        st.text(weight)
+        total_sum += weight
+
+    with col4:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/add:", key=f"add_{i}"):
+            add_item_row()
+            st.rerun()  # Rerun to refresh the UI after addition
+
+    with col5:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/delete:", key=f"remove_{i}"):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
+
+item_types = ['Hollow Bar', 'Round Bar']
+
+# Display current add items
+for i in range(len(st.session_state.add_items)):
+    items = st.session_state.add_items[i]  # Get the item at the current index
+    col_item, col_type = st.columns([1, 1])
+    with col_item:
+        item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{i}")
+        st.session_state.add_items[i]['item_name'] = item_name
+
+    with col_type:
+        item_type = st.selectbox('Select the item type', options=item_types, key=f"item_type_{i}")
+        st.session_state.add_items[i]['item_type'] = item_type
+
+    if st.session_state.add_items[i]['item_type'] == 'Hollow Bar':
+        hollow_bar_func()
+
+    if st.session_state.add_items[i]['item_type'] == 'Round Bar':
+        round_bar_func()
+
+
+
 # for item in st.session_state.add_items:
 #     st.write(f"The Weight of {item['item_name']} is {item['Weight']}")
 
@@ -101,6 +150,7 @@ for i in range(len(st.session_state.add_items)):
 # Convert list of dictionaries to DataFrame with additional columns
 df = DataFrame({
     "Item Name": [item["item_name"] for item in st.session_state.add_items],
+    "Item Type": [item["item_type"] for item in st.session_state.add_items],
     "Length": [item["length"] for item in st.session_state.add_items],
     "Breadth": [item["breadth"] for item in st.session_state.add_items],
     "Thickness": [item["thickness"] for item in st.session_state.add_items],
