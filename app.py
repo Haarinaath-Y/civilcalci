@@ -1,7 +1,7 @@
 import streamlit as st
 from pandas import DataFrame
 from io import BytesIO
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
@@ -31,28 +31,34 @@ if 'add_items' not in st.session_state:
 # Function to create PDF
 def create_pdf(dataframe):
     buffer = BytesIO()
-    p = canvas.Canvas(buffer, pagesize=letter)
-    width, height = letter
+    p = canvas.Canvas(buffer, pagesize=landscape(letter))
+    width, height = landscape(letter)
 
     # Title
     p.setFont("Helvetica-Bold", 14)
     p.drawString(30, height - 40, "DataFrame Report")
 
-    # Draw DataFrame content
-    p.setFont("Helvetica", 12)
+    # Set font for content
+    p.setFont("Helvetica", 10)
+
+    # Layout for columns
     x_offset = 30
     y_offset = height - 70
     line_height = 20
+    max_cols = min(len(dataframe.columns), 8)  # Fit up to 8 columns
+
+    # Column width calculation to fit all columns
+    col_width = (width - 2 * x_offset) / max_cols
 
     # Header
-    for i, col in enumerate(dataframe.columns):
-        p.drawString(x_offset + i * 100, y_offset, str(col))
+    for i, col in enumerate(dataframe.columns[:max_cols]):
+        p.drawString(x_offset + i * col_width, y_offset, str(col))
     y_offset -= line_height
 
     # Rows
-    for index, row in dataframe.iterrows():
-        for i, col in enumerate(dataframe.columns):
-            p.drawString(x_offset + i * 100, y_offset, str(row[col]))
+    for _, row in dataframe.iterrows():
+        for i, col in enumerate(dataframe.columns[:max_cols]):
+            p.drawString(x_offset + i * col_width, y_offset, str(row[col]))
         y_offset -= line_height
 
     p.save()
@@ -348,8 +354,7 @@ if str(total_sum) == 0 or str(total_sum) == '-':
 else:
     st.subheader('MS Steel Calculation Details', divider=True)
     st.dataframe(df, hide_index=True)
-
-st.success(f"Total Weight of all items: **{total_sum} kg**")
+    st.success(f"Total Weight of all items: **{total_sum} kg**")
 
 # Button to generate and download PDF
 if st.button("Download PDF"):
