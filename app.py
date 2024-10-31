@@ -350,7 +350,7 @@ total_sum = df.iloc[:, -1].sum()
 
 # Display the DataFrame in Streamlit
 if str(total_sum) == 0 or str(total_sum) == '-':
-    st.write("Add values")
+    st.warning("Add values")
 else:
     st.subheader('MS Steel Calculation Details', divider=True)
     st.dataframe(df, hide_index=True)
