@@ -1,7 +1,8 @@
 import streamlit as st
 from pandas import DataFrame
 
-st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/calculate:", layout='wide')
+st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/calculate:", layout='wide',
+                   initial_sidebar_state='collapsed')
 st.sidebar.success("Navigate yourself")
 
 st.title("MS Weight Calculator")
