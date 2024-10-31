@@ -49,20 +49,20 @@ def hollow_bar_func():
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
 
     with col1:
-        length = st.number_input("Enter the length", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
         st.session_state.add_items[i]['length'] = length
 
     with col2:
-        breadth = st.number_input("Enter the breadth", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
+        breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
         st.session_state.add_items[i]['breadth'] = breadth
 
     with col3:
-        thickness = st.number_input("Enter the thickness", value=float(items['thickness']), min_value=0.0,
+        thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
                                     key=f'thickness_{i}')
         st.session_state.add_items[i]['thickness'] = thickness
 
     with col4:
-        width = st.number_input("Enter the width", value=float(items['width']), min_value=0.0, key=f'width_{i}')
+        width = st.number_input("Enter the width (mm)", value=float(items['width']), min_value=0.0, key=f'width_{i}')
         st.session_state.add_items[i]['width'] = width
 
     with col5:
@@ -92,14 +92,14 @@ def round_bar_func():
         return ln * dia
 
     total_sum = 0
-    col1, col2, col3, col4, col5 = st.columns([1, 1, 0.5, 0.1, 0.1])
+    col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 0.1, 0.1])
 
     with col1:
-        length = st.number_input("Enter the length", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        length = st.number_input("Enter the length (mm)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
         st.session_state.add_items[i]['length'] = length
 
     with col2:
-        diameter = st.number_input("Enter the diameter", value=float(items['diameter']), min_value=0.0,
+        diameter = st.number_input("Enter the diameter (mm)", value=float(items['diameter']), min_value=0.0,
                                    key=f'diameter_{i}')
         st.session_state.add_items[i]['diameter'] = diameter
 
