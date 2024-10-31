@@ -251,7 +251,7 @@ def square_steel_bar():
 
 
 item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars',
-              'Square Steel Bar']
+              'Square Steel Bars']
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
