@@ -346,6 +346,8 @@ total_sum = df.iloc[:, -1].sum()
 if total_sum > 0:
     st.subheader('MS Steel Calculation Details', divider=True)
     st.dataframe(df, hide_index=True)
+else:
+    st.write("Add values")
 
 st.success(f"Total Weight of all items: **{total_sum} kg**")
 
