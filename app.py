@@ -45,7 +45,7 @@ def hollow_bar_func():
     def calculate_weight(ln, br, thick, wid):
         return ln * br * thick * wid
 
-    total_sum = 0
+    total_bar_sum = 0
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
 
@@ -71,7 +71,7 @@ def hollow_bar_func():
         weight = calculate_weight(length, breadth, thickness, width)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
-        total_sum += weight
+        total_bar_sum += weight
 
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
@@ -84,6 +84,8 @@ def hollow_bar_func():
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
+
+    return total_bar_sum
 
 
 def round_bar_func():
