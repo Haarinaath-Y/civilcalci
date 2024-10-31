@@ -1,5 +1,8 @@
 import streamlit as st
 from pandas import DataFrame
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
                    initial_sidebar_state='collapsed')
@@ -23,6 +26,38 @@ default_values = {
 # Initialize session state for add items list if not already done
 if 'add_items' not in st.session_state:
     st.session_state.add_items = [default_values.copy()]  # Use copy to avoid reference issues
+
+
+# Function to create PDF
+def create_pdf(dataframe):
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    # Title
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(30, height - 40, "DataFrame Report")
+
+    # Draw DataFrame content
+    p.setFont("Helvetica", 12)
+    x_offset = 30
+    y_offset = height - 70
+    line_height = 20
+
+    # Header
+    for i, col in enumerate(dataframe.columns):
+        p.drawString(x_offset + i * 100, y_offset, str(col))
+    y_offset -= line_height
+
+    # Rows
+    for index, row in dataframe.iterrows():
+        for i, col in enumerate(dataframe.columns):
+            p.drawString(x_offset + i * 100, y_offset, str(row[col]))
+        y_offset -= line_height
+
+    p.save()
+    buffer.seek(0)
+    return buffer
 
 
 # Add a new empty add items row
@@ -313,3 +348,13 @@ if total_sum > 0:
     st.dataframe(df, hide_index=True)
 
 st.success(f"Total Weight of all items: **{total_sum} kg**")
+
+# Button to generate and download PDF
+if st.button("Download PDF"):
+    pdf_buffer = create_pdf(df)
+    st.download_button(
+        label="Download PDF",
+        data=pdf_buffer,
+        file_name="dataframe_report.pdf",
+        mime="application/pdf"
+    )
