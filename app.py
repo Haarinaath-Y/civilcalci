@@ -156,11 +156,11 @@ for i in range(len(st.session_state.add_items)):
 df = DataFrame({
     "Item Name": [item["item_name"] for item in st.session_state.add_items],
     "Item Type": [item["item_type"] for item in st.session_state.add_items],
-    "Length": [item["length"] for item in st.session_state.add_items],
     "Breadth": [item["breadth"] for item in st.session_state.add_items],
-    "Diameter": [item["diameter"] for item in st.session_state.add_items],
-    "Thickness": [item["thickness"] for item in st.session_state.add_items],
     "Depth": [item["depth"] for item in st.session_state.add_items],
+    "Thickness": [item["thickness"] for item in st.session_state.add_items],
+    "Diameter": [item["diameter"] for item in st.session_state.add_items],
+    "Length": [item["length"] for item in st.session_state.add_items],
     "Weight": [item["weight"] for item in st.session_state.add_items]
 })
 
