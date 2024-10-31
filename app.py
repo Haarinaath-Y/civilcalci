@@ -85,8 +85,6 @@ def hollow_bar_func():
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
 
-    return total_bar_sum
-
 
 def round_bar_func():
 
@@ -124,8 +122,6 @@ def round_bar_func():
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
-
-    return total_bar_sum
 
 
 item_types = ['Hollow Bar', 'Round Bar']
@@ -171,5 +167,6 @@ df = DataFrame({
 st.subheader('MS Steel Calculation Details', divider=True)
 # Display the DataFrame in Streamlit
 st.dataframe(df, hide_index=True)
+total_sum = df.iloc[:, -1].sum()
 
 st.success(f"Total Weight of all items: **{total_sum}**")
