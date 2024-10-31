@@ -2,6 +2,7 @@ import streamlit as st
 from pandas import DataFrame
 
 st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/calculate:", layout="wide")
+st.sidebar()
 
 st.title("Civil Material Calculator")
 
