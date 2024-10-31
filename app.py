@@ -14,7 +14,8 @@ default_values = {
     "length": 1.0,  # Changed to float
     "breadth": 1.0,  # Changed to float
     "thickness": 1.0,  # Changed to float
-    "width": 1.0  # Changed to float
+    "width": 1.0,  # Changed to float
+    "diameter": 1.0 # Changed to float
 }
 
 # Initialize session state for add items list if not already done
