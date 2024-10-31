@@ -135,8 +135,8 @@ def cir_hollow_func():
 def round_steel_bar():
 
     # Function to calculate the Weight
-    def calculate_weight(ln, dia):
-        return (ln*1000) * dia
+    def calculate_weight(l, d):
+        return d*d*l/162
 
     total_bar_sum = 0
     col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
