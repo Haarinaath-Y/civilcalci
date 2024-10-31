@@ -357,11 +357,10 @@ else:
     st.success(f"Total Weight of all items: **{total_sum} kg**")
 
 # Button to generate and download PDF
-if st.button("Download PDF"):
-    pdf_buffer = create_pdf(df)
-    st.download_button(
-        label="Download PDF",
-        data=pdf_buffer,
-        file_name="dataframe_report.pdf",
-        mime="application/pdf"
-    )
+pdf_buffer = create_pdf(df)
+st.download_button(
+    label="Download PDF",
+    data=pdf_buffer,
+    file_name="dataframe_report.pdf",
+    mime="application/pdf"
+)
