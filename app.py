@@ -12,10 +12,10 @@ total_sum = 0
 default_values = {
     "item_name": None,
     "length": 1.0,  # Changed to float
+    "diameter": 1.0,  # Changed to float
     "breadth": 1.0,  # Changed to float
     "thickness": 1.0,  # Changed to float
-    "width": 1.0,  # Changed to float
-    "diameter": 1.0 # Changed to float
+    "width": 1.0  # Changed to float
 }
 
 # Initialize session state for add items list if not already done
@@ -99,7 +99,8 @@ def round_bar_func():
         st.session_state.add_items[i]['length'] = length
 
     with col2:
-        diameter = st.number_input("Enter the diameter", value=float(items['diameter']), min_value=0.0, key=f'diameter_{i}')
+        diameter = st.number_input("Enter the diameter", value=float(items['diameter']), min_value=0.0,
+                                   key=f'diameter_{i}')
         st.session_state.add_items[i]['diameter'] = diameter
 
     with col3:
