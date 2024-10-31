@@ -343,11 +343,11 @@ df.replace(0, '-', inplace=True)
 total_sum = df.iloc[:, -1].sum()
 
 # Display the DataFrame in Streamlit
-if total_sum > 0:
+if str(total_sum) == 0 or str(total_sum) == '-':
+    st.write("Add values")
+else:
     st.subheader('MS Steel Calculation Details', divider=True)
     st.dataframe(df, hide_index=True)
-else:
-    st.write("Add values")
 
 st.success(f"Total Weight of all items: **{total_sum} kg**")
 
