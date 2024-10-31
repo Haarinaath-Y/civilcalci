@@ -6,8 +6,8 @@ st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/
 st.title("Civil Material Calculator")
 
 
-# Function to calculate the volume
-def calculate_volume(ln, br, thick, wid):
+# Function to calculate the Weight
+def calculate_weight(ln, br, thick, wid):
     return ln * br * thick * wid
 
 
@@ -68,11 +68,11 @@ for i in range(len(st.session_state.add_items)):
         st.session_state.add_items[i]['width'] = width
 
     with col5:
-        st.write(f'Volume of item {i + 1}')
-        volume = calculate_volume(length, breadth, thickness, width)
-        st.session_state.add_items[i]['volume'] = volume
-        st.text(volume)
-        total_sum += volume
+        st.write(f'Weight of item {i + 1}')
+        weight = calculate_weight(length, breadth, thickness, width)
+        st.session_state.add_items[i]['weight'] = weight
+        st.text(weight)
+        total_sum += weight
 
     with col6:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
@@ -88,7 +88,7 @@ for i in range(len(st.session_state.add_items)):
 
 
 # for item in st.session_state.add_items:
-#     st.write(f"The Volume of {item['item_name']} is {item['volume']}")
+#     st.write(f"The Weight of {item['item_name']} is {item['Weight']}")
 
 
 # Convert list of dictionaries to DataFrame with additional columns
@@ -98,11 +98,11 @@ df = DataFrame({
     "Breadth": [item["breadth"] for item in st.session_state.add_items],
     "Thickness": [item["thickness"] for item in st.session_state.add_items],
     "Width": [item["width"] for item in st.session_state.add_items],
-    "Volume": [item["volume"] for item in st.session_state.add_items]
+    "Weight": [item["weight"] for item in st.session_state.add_items]
 })
 
 st.subheader('MS Steel Calculation Details', divider=True)
 # Display the DataFrame in Streamlit
 st.dataframe(df, hide_index=True)
 
-st.success(f"Total Volume of all items: **{total_sum}**")
+st.success(f"Total Weight of all items: **{total_sum}**")
