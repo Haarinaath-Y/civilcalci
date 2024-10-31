@@ -90,8 +90,10 @@ def rec_hollow_func():
 def cir_hollow_func():
 
     # Function to calculate the Weight
-    def calculate_weight(ln, dia):
-        return (ln*1000) * dia
+    def calculate_weight(l, d, t):
+        R = d/2
+        r = R-t
+        return 3.1416 * ((R*R)-(r*r))*l*7850/1000000
 
     total_bar_sum = 0
     col1, col2, col3, col4, col5, col6 = st.columns([1.33, 1.33, 1.33, 0.5, 0.15, 0.15])
@@ -102,17 +104,17 @@ def cir_hollow_func():
         st.session_state.add_items[i]['diameter'] = diameter
 
     with col2:
-        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
-        st.session_state.add_items[i]['length'] = length
-
-    with col3:
         thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
                                     key=f'thickness_{i}')
         st.session_state.add_items[i]['thickness'] = thickness
 
+    with col3:
+        length = st.number_input("Enter the length (m)", value=float(items['length']), min_value=0.0, key=f'length_{i}')
+        st.session_state.add_items[i]['length'] = length
+
     with col4:
         st.write(f'Weight of item {i + 1}')
-        weight = calculate_weight(length, diameter)
+        weight = calculate_weight(length, diameter, thickness)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
