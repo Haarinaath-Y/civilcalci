@@ -52,7 +52,7 @@ for i in range(len(st.session_state.add_items)):
         st.session_state.add_items[i]['item_name'] = item_name
 
     with col_type:
-        item_type = st.selectbox(item_types, key=f"item_type_{i}")
+        item_type = st.selectbox('Select the item type', item_types, key=f"item_type_{i}")
         st.session_state.add_items[i]['item_type'] = item_type
 
     col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
