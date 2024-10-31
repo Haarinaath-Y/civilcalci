@@ -148,6 +148,8 @@ for i in range(len(st.session_state.add_items)):
     if st.session_state.add_items[i]['item_type'] == 'Round Bar':
         round_bar_func()
 
+    st.divider()
+
 
 
 # for item in st.session_state.add_items:
