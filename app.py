@@ -12,11 +12,11 @@ total_sum = 0
 # Update default values to floats
 default_values = {
     "item_name": None,
-    "length": 1.0,  # Changed to float
-    "diameter": 1.0,  # Changed to float
-    "breadth": 1.0,  # Changed to float
-    "thickness": 1.0,  # Changed to float
-    "width": 1.0  # Changed to float
+    "length": 0.0,  # Changed to float
+    "diameter": 0.0,  # Changed to float
+    "breadth": 0.0,  # Changed to float
+    "thickness": 0.0,  # Changed to float
+    "width": 0.0  # Changed to float
 }
 
 # Initialize session state for add items list if not already done
@@ -94,7 +94,7 @@ def round_bar_func():
     def calculate_weight(ln, dia):
         return ln * dia
 
-    total_sum = 0
+    total_bar_sum = 0
     col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
 
     with col1:
@@ -111,7 +111,7 @@ def round_bar_func():
         weight = calculate_weight(length, diameter)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
-        total_sum += weight
+        total_bar_sum += weight
 
     with col4:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
@@ -124,6 +124,8 @@ def round_bar_func():
         if st.button(":material/delete:", key=f"remove_{i}"):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
+
+    return total_bar_sum
 
 
 item_types = ['Hollow Bar', 'Round Bar']
