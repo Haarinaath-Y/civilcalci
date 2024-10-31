@@ -1,10 +1,10 @@
 import streamlit as st
 from pandas import DataFrame
 
-st.set_page_config(page_title="Civil Material Calculator", page_icon=":material/calculate:", layout='wide')
+st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/calculate:", layout='wide')
 st.sidebar.success("Navigate yourself")
 
-st.title("Civil Material Calculator")
+st.title("MS Weight Calculator")
 
 total_sum = 0
 
@@ -124,7 +124,7 @@ def round_bar_func():
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
-item_types = ['Hollow Bar', 'Round Bar']
+item_types = ['Rectangular Hollow Section', 'Circular Hollow Section']
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
@@ -138,10 +138,10 @@ for i in range(len(st.session_state.add_items)):
         item_type = st.selectbox('Select the item type', options=item_types, key=f"item_type_{i}")
         st.session_state.add_items[i]['item_type'] = item_type
 
-    if st.session_state.add_items[i]['item_type'] == 'Hollow Bar':
+    if st.session_state.add_items[i]['item_type'] == 'Rectangular Hollow Section':
         hollow_bar_func()
 
-    if st.session_state.add_items[i]['item_type'] == 'Round Bar':
+    if st.session_state.add_items[i]['item_type'] == 'Circular Hollow Section':
         round_bar_func()
 
     st.divider()
