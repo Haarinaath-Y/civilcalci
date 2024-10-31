@@ -70,6 +70,7 @@ def rec_hollow_func():
     with col5:
         st.write(f'Weight of item {i + 1}')
         weight = calculate_weight(length, breadth, thickness, depth)
+        weight = round(weight, 2)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
@@ -115,6 +116,7 @@ def cir_hollow_func():
     with col4:
         st.write(f'Weight of item {i + 1}')
         weight = calculate_weight(length, diameter, thickness)
+        weight = round(weight, 2)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
@@ -153,6 +155,7 @@ def round_steel_bar():
     with col3:
         st.write(f'Weight of item {i + 1}')
         weight = calculate_weight(length, diameter)
+        weight = round(weight, 2)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
@@ -195,6 +198,7 @@ def flat_bar():
     with col4:
         st.write(f'Weight of item {i + 1}')
         weight = calculate_weight(length, thickness, breadth)
+        weight = round(weight, 2)
         st.session_state.add_items[i]['weight'] = weight
         st.text(weight)
         total_bar_sum += weight
@@ -222,8 +226,7 @@ def square_steel_bar():
     col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15, 0.15])
 
     with col1:
-        breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0,
-                                   key=f'breadth_{i}')
+        breadth = st.number_input("Enter the breadth (mm)", value=float(items['breadth']), min_value=0.0, key=f'breadth_{i}')
         st.session_state.add_items[i]['breadth'] = breadth
 
     with col2:
@@ -284,7 +287,6 @@ for i in range(len(st.session_state.add_items)):
     st.divider()
 
 
-
 # for item in st.session_state.add_items:
 #     st.write(f"The Weight of {item['item_name']} is {item['Weight']}")
 
@@ -300,6 +302,8 @@ df = DataFrame({
     "Length": [item["length"] for item in st.session_state.add_items],
     "Weight": [item["weight"] for item in st.session_state.add_items]
 })
+
+df.replace(0, '-', inplace=True)
 
 total_sum = df.iloc[:, -1].sum()
 
