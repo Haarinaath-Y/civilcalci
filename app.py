@@ -344,9 +344,9 @@ df = DataFrame({
     "Weight (kg)": [item["weight"] for item in st.session_state.add_items]
 })
 
-df.replace(0, '-', inplace=True)
-
 total_sum = df.iloc[:, -1].sum()
+
+df.replace(0, '-', inplace=True)
 
 # Display the DataFrame in Streamlit
 if str(total_sum) == 0 or str(total_sum) == '-':
