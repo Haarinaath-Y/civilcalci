@@ -327,6 +327,19 @@ for i in range(len(st.session_state.add_items)):
 
     st.divider()
 
+col1, col2 = st.columns([1, 1])
+with col1:
+    st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+    if st.button(":material/add:", key=f"add"):
+        add_item_row()
+        st.rerun()  # Rerun to refresh the UI after addition
+
+with col2:
+    st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+    if st.button(":material/delete:", key=f"remove"):
+        remove_item_row(-1)
+        st.rerun()  # Rerun to refresh the UI after deletion
+
 
 # for item in st.session_state.add_items:
 #     st.write(f"The Weight of {item['item_name']} is {item['Weight']}")
