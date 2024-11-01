@@ -329,14 +329,12 @@ for i in range(len(st.session_state.add_items)):
 
 col1, col2 = st.columns([1, 1])
 with col1:
-    st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-    if st.button(":material/add:", key=f"add"):
+    if st.button("Add a new item", key=f"add", icon=':material/add:'):
         add_item_row()
         st.rerun()  # Rerun to refresh the UI after addition
 
 with col2:
-    st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-    if st.button(":material/delete:", key=f"remove"):
+    if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
         remove_item_row(-1)
         st.rerun()  # Rerun to refresh the UI after deletion
 
