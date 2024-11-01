@@ -1,4 +1,6 @@
 import streamlit as st
+from pandas import DataFrame
+
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
                    initial_sidebar_state='collapsed')
@@ -127,4 +129,29 @@ if st.button("Add a new item", key=f"add", icon=':material/add:'):
 if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
     remove_item_row(-1)
     st.rerun()  # Rerun to refresh the UI after deletion
+
+
+# Convert list of dictionaries to DataFrame with additional columns
+df = DataFrame({
+    "Item Name": [item["item_name"] for item in st.session_state.add_items],
+    "Item Type": [item["item_type"] for item in st.session_state.add_items],
+    "Breadth (mm)": [item["breadth"] for item in st.session_state.add_items],
+    "Depth (mm)": [item["depth"] for item in st.session_state.add_items],
+    "Thickness (mm)": [item["thickness"] for item in st.session_state.add_items],
+    "Diameter (mm)": [item["diameter"] for item in st.session_state.add_items],
+    "Length (m)": [item["length"] for item in st.session_state.add_items],
+    "Weight (kg)": [item["weight"] for item in st.session_state.add_items]
+})
+
+total_sum = df.iloc[:, -1].sum()
+
+df.replace(0, '-', inplace=True)
+
+# Display the DataFrame in Streamlit
+if str(total_sum) == 0 or str(total_sum) == '-':
+    st.warning("Add values")
+else:
+    st.subheader('MS Steel Calculation Details', divider=True)
+    st.dataframe(df, hide_index=True)
+    st.success(f"Total Weight of all items: **{total_sum} kg**")
 
