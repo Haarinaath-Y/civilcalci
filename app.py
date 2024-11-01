@@ -327,16 +327,16 @@ for i in range(len(st.session_state.add_items)):
 
     st.divider()
 
-col1, col2 = st.columns([1, 5])
-with col1:
-    if st.button("Add a new item", key=f"add", icon=':material/add:'):
-        add_item_row()
-        st.rerun()  # Rerun to refresh the UI after addition
 
-with col2:
-    if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
-        remove_item_row(-1)
-        st.rerun()  # Rerun to refresh the UI after deletion
+
+if st.button("Add a new item", key=f"add", icon=':material/add:'):
+    add_item_row()
+    st.rerun()  # Rerun to refresh the UI after addition
+
+
+if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
+    remove_item_row(-1)
+    st.rerun()  # Rerun to refresh the UI after deletion
 
 
 # for item in st.session_state.add_items:
