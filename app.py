@@ -100,7 +100,7 @@ def rec_hollow_func():
         st.session_state.add_items[i]['depth'] = depth
 
     with col3:
-        thickness = st.number_input("Enter the thickness (mm)", value=float(items['thickness']), min_value=0.0,
+        thickness = st.number_input("Enter the thickness (mm)", value=0.0, min_value=0.0,
                                     key=f'thickness_{i}')
         st.session_state.add_items[i]['thickness'] = thickness
 
@@ -326,7 +326,6 @@ for i in range(len(st.session_state.add_items)):
         square_steel_bar()
 
     st.divider()
-
 
 
 if st.button("Add a new item", key=f"add", icon=':material/add:'):
