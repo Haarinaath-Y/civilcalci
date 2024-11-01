@@ -327,7 +327,7 @@ for i in range(len(st.session_state.add_items)):
 
     st.divider()
 
-col1, col2 = st.columns([0.5, 0.5])
+col1, col2 = st.columns([1, 0.5])
 with col1:
     if st.button("Add a new item", key=f"add", icon=':material/add:'):
         add_item_row()
