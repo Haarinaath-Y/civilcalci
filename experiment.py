@@ -97,7 +97,7 @@ def rec_hollow_func(index):
         st.text(item['weight'])
 
     with col6:
-        if st.button("Delete", key=f"remove_{index}"):
+        if st.button(":material/delete:", key=f"remove_{index}"):
             remove_item_row(index)
             st.rerun()
 
@@ -124,9 +124,8 @@ def square_steel_bar(index):
         st.text(item['weight'])
 
     with col4:
-        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(i)
+            remove_item_row(index)
             st.rerun()  # Rerun to refresh the UI after deletion
 
 # Define similar function for other types like `cir_hollow_func`, `round_steel_bar`, etc. with `index` as an argument.
