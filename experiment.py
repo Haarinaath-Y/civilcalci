@@ -71,13 +71,14 @@ def remove_item_row(index):
     if 0 <= index < len(st.session_state.add_items):
         del st.session_state.add_items[index]
 
+
 # Redefine each type function to accept an `index` parameter
 def rec_hollow_func(index):
     def calculate_weight(l, b, t, d):
         return ((b * d) - ((b - (2 * t)) * (d - (2 * t)))) * l / 1000000 * 7850
 
     item = st.session_state.add_items[index]
-    col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15, 0.15])
+    col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15])
 
     with col1:
         item['breadth'] = st.number_input("Enter the breadth (mm)", value=item['breadth'], min_value=0.0, key=f'breadth_{index}')
@@ -96,18 +97,41 @@ def rec_hollow_func(index):
         st.text(item['weight'])
 
     with col6:
-        if st.button("Add", key=f"add_{index}"):
-            add_item_row()
-            st.rerun()
-
-    with col7:
         if st.button("Delete", key=f"remove_{index}"):
             remove_item_row(index)
             st.rerun()
 
 
+def square_steel_bar(index):
+
+    # Function to calculate the Weight
+    def calculate_weight(l, b):
+        return b*b*l/1000000*7850
+
+    item = st.session_state.add_items[index]
+
+    col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15])
+
+    with col1:
+        item['breadth'] = st.number_input("Enter the breadth (mm)", value=0.0, min_value=0.0, key=f'breadth_{index}')
+
+    with col2:
+        item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0, key=f'length_{index}')
+
+    with col3:
+        st.write(f'Weight of item {i + 1}')
+        item['weight'] = round(calculate_weight(item['length'], item['breadth']), 2)
+        st.text(item['weight'])
+
+    with col4:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        if st.button(":material/delete:", key=f"remove_{index}"):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
 # Define similar function for other types like `cir_hollow_func`, `round_steel_bar`, etc. with `index` as an argument.
 # Each function would use `index` to correctly reference `st.session_state.add_items[index]`.
+
 
 item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round Steel Bars', 'Flat Bars', 'Square Steel Bars']
 
@@ -127,6 +151,8 @@ for i in range(len(st.session_state.add_items)):
     if item['item_type'] == 'Rectangular Hollow Section':
         rec_hollow_func(i)
     # Add elif blocks for other item types
+    elif st.session_state.add_items[i]['item_type'] == 'Square Steel Bars':
+        square_steel_bar(i)
 
     st.divider()
 
