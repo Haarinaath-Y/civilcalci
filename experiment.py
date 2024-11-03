@@ -114,7 +114,7 @@ def square_steel_bar(index):
     col1, col2, col3, col4 = st.columns([2, 2, 0.5, 0.15])
 
     with col1:
-        item['breadth'] = st.number_input("Enter the breadth (mm)", value=0.0, min_value=0.0, key=f'breadth_{index}')
+        item['breadth'] = st.number_input("Enter the breadth (mm)", value=item['breadth'], min_value=0.0, key=f'breadth_{index}')
 
     with col2:
         item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0, key=f'length_{index}')
