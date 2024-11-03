@@ -355,6 +355,7 @@ df = DataFrame({
 })
 
 total_sum = df.iloc[:, -1].sum()
+total_sum = round(total_sum, 2)
 
 df.replace(0, '-', inplace=True)
 
