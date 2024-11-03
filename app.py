@@ -73,7 +73,12 @@ def add_item_row():
 # Function to remove an item at a specific index
 def remove_item_row(index):
     if 0 <= index < len(st.session_state.add_items):
-        del st.session_state.add_items[index]
+        # Shift values down to keep the order after deletion
+        for i in range(index, len(st.session_state.add_items) - 1):
+            st.session_state.add_items[i] = st.session_state.add_items[i + 1].copy()
+
+        # Remove the last item, which is now a duplicate of the previous one
+        st.session_state.add_items.pop()
 
 
 # Redefine each type function to accept an `index` parameter
