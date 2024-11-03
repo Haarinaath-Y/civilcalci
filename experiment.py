@@ -56,7 +56,7 @@ def flat_bar(index):
 
     with col3:
         item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0,
-                                         key=f'length_{index}')
+                                         key=f'length_{index}', format="%.3f")
 
     with col4:
         st.write(f'Weight of item {index + 1}')
@@ -82,7 +82,7 @@ def square_steel_bar(index):
 
     with col2:
         item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0,
-                                         key=f'length_{index}')
+                                         key=f'length_{index}', format="%.3f")
 
     with col3:
         st.write(f'Weight of item {index + 1}')
