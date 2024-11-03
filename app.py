@@ -295,6 +295,7 @@ total_sum = round(df.iloc[:, -1].sum(), 2)
 
 # Replacing zero values with hyphen
 df.replace(0, '-', inplace=True)
+df.round(2)
 
 st.subheader('MS Steel Calculation Details', divider=True)
 st.dataframe(df, hide_index=True, use_container_width=True)
