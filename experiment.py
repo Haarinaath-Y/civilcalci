@@ -98,7 +98,7 @@ def square_steel_bar(index):
 # Display and manage items
 for i, item in enumerate(st.session_state.add_items):
     item_id = item["id"]
-    col1, col2, col3 = st.columns([1, 1, 0.1])
+    col1, col2 = st.columns([1, 1])
 
     with col1:
         item_name = st.text_input(f"Enter item name {i + 1}", value=item["item_name"] or "", key=f"item_name_{item_id}")
@@ -107,11 +107,6 @@ for i, item in enumerate(st.session_state.add_items):
     with col2:
         item_type = st.selectbox("Select item type", options=item_types, index=item_types.index(item["item_type"]) if item["item_type"] in item_types else 0, key=f"item_type_{item_id}")
         item["item_type"] = item_type
-
-    with col3:
-        if st.button("Delete", key=f"delete_{item_id}"):
-            remove_item(item_id)
-            st.rerun()
 
     # Display input fields based on item type
     if item_type == 'Flat Bars':
