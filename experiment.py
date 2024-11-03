@@ -93,6 +93,7 @@ def rec_hollow_func(index):
         item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0, key=f'length_{index}')
 
     with col5:
+        st.write(f'Weight of item {i + 1}')
         item['weight'] = round(calculate_weight(item['length'], item['breadth'], item['thickness'], item['depth']), 2)
         st.text(item['weight'])
 
