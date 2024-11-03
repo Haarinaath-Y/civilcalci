@@ -110,7 +110,7 @@ def square_steel_bar(index):
 
     item = st.session_state.add_items[index]
 
-    col1, col2, col3, col4, col5 = st.columns([2, 2, 0.5, 0.15])
+    col1, col2, col3, col4 = st.columns([2, 2, 0.5, 0.15])
 
     with col1:
         item['breadth'] = st.number_input("Enter the breadth (mm)", value=0.0, min_value=0.0, key=f'breadth_{index}')
