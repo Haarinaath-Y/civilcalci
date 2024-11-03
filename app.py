@@ -354,9 +354,19 @@ df = DataFrame({
     "Weight (kg)": [item["weight"] for item in st.session_state.add_items]
 })
 
+# Apply rules for Item Type Selection
+df.loc[df["Item Type"] == "Rectangular Hollow Section", ["Diameter (mm)"]] = 0
+df.loc[df["Item Type"] == "Circular Hollow Section", ["Breadth (mm)", "Depth (mm)"]] = 0
+df.loc[df["Item Type"] == "Round Steel Bars", ["Breadth (mm)", "Depth (mm)", "Thickness (mm)"]] = 0
+df.loc[df["Item Type"] == "Flat Bars", ["Depth (mm)", "Diameter (mm)"]] = 0
+df.loc[df["Item Type"] == "Square Steel Bars", ["Depth (mm)", "Diameter (mm)", "Thickness (mm)"]] = 0
+
+
+# Total weight calculation
 total_sum = df.iloc[:, -1].sum()
 total_sum = round(total_sum, 2)
 
+# Replacing zero values with hyphen
 df.replace(0, '-', inplace=True)
 
 # Display the DataFrame in Streamlit
