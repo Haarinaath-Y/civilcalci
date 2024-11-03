@@ -333,9 +333,9 @@ if st.button("Add a new item", key=f"add", icon=':material/add:'):
     st.rerun()  # Rerun to refresh the UI after addition
 
 
-if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
-    remove_item_row(-1)
-    st.rerun()  # Rerun to refresh the UI after deletion
+# if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
+#     remove_item_row(-1)
+#     st.rerun()  # Rerun to refresh the UI after deletion
 
 
 # for item in st.session_state.add_items:
