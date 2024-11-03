@@ -291,7 +291,7 @@ df.loc[df["Item Type"] == "Flat Bars", ["Depth (mm)", "Diameter (mm)"]] = 0
 df.loc[df["Item Type"] == "Square Steel Bars", ["Depth (mm)", "Diameter (mm)", "Thickness (mm)"]] = 0
 
 # Total weight calculation
-total_sum = round(df.iloc[-1].sum(), 2)
+total_sum = round(df.iloc[:,-1].sum(), 2)
 
 # Replacing zero values with hyphen
 df.replace(0, '-', inplace=True)
