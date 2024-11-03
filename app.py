@@ -291,13 +291,13 @@ df.loc[df["Item Type"] == "Flat Bars", ["Depth (mm)", "Diameter (mm)"]] = 0
 df.loc[df["Item Type"] == "Square Steel Bars", ["Depth (mm)", "Diameter (mm)", "Thickness (mm)"]] = 0
 
 # Total weight calculation
-total_sum = round(df.iloc[:,-1].sum(), 2)
+total_sum = round(df.iloc[:, -1].sum(), 2)
 
 # Replacing zero values with hyphen
 df.replace(0, '-', inplace=True)
 
 st.subheader('MS Steel Calculation Details', divider=True)
-st.dataframe(df, hide_index=True)
+st.dataframe(df, hide_index=True, use_container_width=True)
 st.success(f"Total Weight of all items: **{total_sum} kg**")
 
 # Button to generate and download PDF
