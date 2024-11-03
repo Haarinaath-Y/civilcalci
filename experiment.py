@@ -295,18 +295,21 @@ item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round St
 
 # Display current add items
 for i in range(len(st.session_state.add_items)):
+    # Ensure a unique key for each item row
+    item_key = f"item_{i}"
+
     items = st.session_state.add_items[i]  # Get the item at the current index
     col_item, col_type, col_delete = st.columns([1, 1, 1])
     with col_item:
-        item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{i}")
+        item_name = st.text_input(f"Enter item {i + 1}", value=items['item_name'], key=f"item_name_{item_key}")
         st.session_state.add_items[i]['item_name'] = item_name
 
     with col_type:
-        item_type = st.selectbox('Select the item type', options=item_types, key=f"item_type_{i}")
+        item_type = st.selectbox('Select the item type', options=item_types, key=f"item_type_{item_key}")
         st.session_state.add_items[i]['item_type'] = item_type
 
     with col_delete:
-        if st.button("Delete", key=f"delete_{i}", icon=':material/delete:'):
+        if st.button("Delete", key=f"delete_{item_key}", icon=':material/delete:'):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
 
