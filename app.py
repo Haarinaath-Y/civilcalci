@@ -369,13 +369,9 @@ total_sum = round(total_sum, 2)
 # Replacing zero values with hyphen
 df.replace(0, '-', inplace=True)
 
-# Display the DataFrame in Streamlit
-if str(total_sum) == 0 or str(total_sum) == '-':
-    st.warning("Add values")
-else:
-    st.subheader('MS Steel Calculation Details', divider=True)
-    st.dataframe(df, hide_index=True)
-    st.success(f"Total Weight of all items: **{total_sum} kg**")
+st.subheader('MS Steel Calculation Details', divider=True)
+st.dataframe(df, hide_index=True)
+st.success(f"Total Weight of all items: **{total_sum} kg**")
 
 # Button to generate and download PDF
 pdf_buffer = create_pdf(df)
