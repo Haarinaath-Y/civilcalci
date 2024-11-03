@@ -163,8 +163,8 @@ def round_steel_bar(index):
 
     with col3:
         st.write(f'Weight of item {index + 1}')
-        weight = round(calculate_weight(item['length'], item['diameter']), 2)
-        st.text(weight)
+        item['weight'] = round(calculate_weight(item['length'], item['diameter']), 2)
+        st.text(item['weight'])
 
     with col4:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
@@ -195,8 +195,8 @@ def flat_bar(index):
 
     with col4:
         st.write(f'Weight of item {index + 1}')
-        weight = round(calculate_weight(item['length'], item['thickness'], item['breadth']), 2)
-        st.text(weight)
+        item['weight'] = round(calculate_weight(item['length'], item['thickness'], item['breadth']), 2)
+        st.text(item['weight'])
 
     with col5:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
@@ -253,16 +253,16 @@ for i in range(len(st.session_state.add_items)):
     if item['item_type'] == 'Rectangular Hollow Section':
         rec_hollow_func(i)
 
-    if item['item_type'] == 'Circular Hollow Section':
+    elif item['item_type'] == 'Circular Hollow Section':
         cir_hollow_func(i)
 
-    if item['item_type'] == 'Round Steel Bars':
+    elif item['item_type'] == 'Round Steel Bars':
         round_steel_bar(i)
 
-    if item['item_type'] == 'Flat Bars':
+    elif item['item_type'] == 'Flat Bars':
         flat_bar(i)
 
-    if item['item_type'] == 'Square Steel Bars':
+    elif item['item_type'] == 'Square Steel Bars':
         square_steel_bar(i)
 
     st.divider()
