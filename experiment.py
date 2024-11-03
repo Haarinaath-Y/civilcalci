@@ -305,6 +305,11 @@ for i in range(len(st.session_state.add_items)):
         item_type = st.selectbox('Select the item type', options=item_types, key=f"item_type_{i}")
         st.session_state.add_items[i]['item_type'] = item_type
 
+    with col_delete:
+        if st.button("Delete", key=f"remove", icon=':material/delete:'):
+            remove_item_row(i)
+            st.rerun()  # Rerun to refresh the UI after deletion
+
     if st.session_state.add_items[i]['item_type'] == 'Rectangular Hollow Section':
         rec_hollow_func()
 
@@ -319,11 +324,6 @@ for i in range(len(st.session_state.add_items)):
 
     if st.session_state.add_items[i]['item_type'] == 'Square Steel Bars':
         square_steel_bar()
-
-    with col_delete:
-        if st.button("Delete the last row", key=f"remove", icon=':material/delete:'):
-            remove_item_row(i)
-            st.rerun()  # Rerun to refresh the UI after deletion
 
     st.divider()
 
