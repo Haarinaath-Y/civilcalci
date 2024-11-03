@@ -3,6 +3,7 @@ from pandas import DataFrame
 from io import BytesIO
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
+import uuid
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
                    initial_sidebar_state='collapsed')
@@ -12,19 +13,34 @@ st.title("📏 MS Weight Calculator")
 
 total_sum = 0
 
-# Update default values to floats
-default_values = {
-    "item_name": None,
-    "length": 0.0,  # Changed to float
-    "diameter": 0.0,  # Changed to float
-    "breadth": 0.0,  # Changed to float
-    "thickness": 0.0,  # Changed to float
-    "depth": 0.0  # Changed to float
-}
+# Define default item values with a unique id
+def create_item():
+    return {
+        "id": str(uuid.uuid4()),  # Unique identifier for each item
+        "item_name": None,
+        "item_type": None,
+        "length": 0.0,
+        "diameter": 0.0,
+        "breadth": 0.0,
+        "thickness": 0.0,
+        "depth": 0.0,
+        "weight": 0.0
+    }
 
-# Initialize session state for add items list if not already done
+
+# Initialize session state for add_items list
 if 'add_items' not in st.session_state:
-    st.session_state.add_items = [default_values.copy()]  # Use copy to avoid reference issues
+    st.session_state.add_items = [create_item()]
+
+
+# Function to add a new item
+def add_item():
+    st.session_state.add_items.append(create_item())
+
+
+# Function to remove an item by its unique id
+def remove_item(item_id):
+    st.session_state.add_items = [item for item in st.session_state.add_items if item["id"] != item_id]
 
 
 # Function to create PDF
@@ -65,22 +81,6 @@ def create_pdf(dataframe):
     return buffer
 
 
-# Add a new empty add items row
-def add_item_row():
-    st.session_state.add_items.append(default_values.copy())  # Use copy to avoid reference issues
-
-
-# Function to remove an item at a specific index
-def remove_item_row(index):
-    if 0 <= index < len(st.session_state.add_items):
-        # Shift values down to keep the order after deletion
-        for i in range(index, len(st.session_state.add_items) - 1):
-            st.session_state.add_items[i] = st.session_state.add_items[i + 1].copy()
-
-        # Remove the last item, which is now a duplicate of the previous one
-        st.session_state.add_items.pop()
-
-
 # Redefine each type function to accept an `index` parameter
 def rec_hollow_func(index):
     def calculate_weight(l, b, t, d):
@@ -112,7 +112,7 @@ def rec_hollow_func(index):
 
     with col6:
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(index)
+            remove_item(item["id"])
             st.rerun()
 
 
@@ -147,7 +147,7 @@ def cir_hollow_func(index):
     with col5:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(index)
+            remove_item(item["id"])
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
@@ -175,7 +175,7 @@ def round_steel_bar(index):
     with col4:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(index)
+            remove_item(item["id"])
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
@@ -207,7 +207,7 @@ def flat_bar(index):
     with col5:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(index)
+            remove_item(item["id"])
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
@@ -236,7 +236,7 @@ def square_steel_bar(index):
     with col4:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
-            remove_item_row(index)
+            remove_item(item["id"])
             st.rerun()  # Rerun to refresh the UI after deletion
 
 
@@ -244,9 +244,8 @@ item_types = ['Rectangular Hollow Section', 'Circular Hollow Section', 'Round St
               'Square Steel Bars']
 
 # Display current add items
-for i in range(len(st.session_state.add_items)):
-    item_key = f"item_{i}"
-    item = st.session_state.add_items[i]  # Get the item at the current index
+for i, item in enumerate(st.session_state.add_items):
+    item_key = item["id"]
 
     col_item, col_type = st.columns([1, 1])
 
@@ -254,27 +253,30 @@ for i in range(len(st.session_state.add_items)):
         item['item_name'] = st.text_input(f"Enter item {i + 1}", value=item['item_name'], key=f"item_name_{item_key}")
 
     with col_type:
-        item['item_type'] = st.selectbox('Select the item type', options=item_types, key=f"item_type_{item_key}")
+        item_type = st.selectbox("Select item type", options=item_types,
+                                 index=item_types.index(item["item_type"]) if item["item_type"] in item_types else 0,
+                                 key=f"item_type_{item_key}")
+        item["item_type"] = item_type
 
-    if item['item_type'] == 'Rectangular Hollow Section':
+    if item_type == 'Rectangular Hollow Section':
         rec_hollow_func(i)
 
-    elif item['item_type'] == 'Circular Hollow Section':
+    elif item_type == 'Circular Hollow Section':
         cir_hollow_func(i)
 
-    elif item['item_type'] == 'Round Steel Bars':
+    elif item_type == 'Round Steel Bars':
         round_steel_bar(i)
 
-    elif item['item_type'] == 'Flat Bars':
+    elif item_type == 'Flat Bars':
         flat_bar(i)
 
-    elif item['item_type'] == 'Square Steel Bars':
+    elif item_type == 'Square Steel Bars':
         square_steel_bar(i)
 
     st.divider()
 
 if st.button("Add a new item", key=f"add", icon=':material/add:'):
-    add_item_row()
+    add_item()
     st.rerun()  # Rerun to refresh the UI after addition
 
 # Convert list of dictionaries to DataFrame with additional columns
