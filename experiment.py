@@ -306,7 +306,7 @@ for i in range(len(st.session_state.add_items)):
         st.session_state.add_items[i]['item_type'] = item_type
 
     with col_delete:
-        if st.button("Delete", key=f"delete specific row", icon=':material/delete:'):
+        if st.button("Delete", key=f"delete_{i}", icon=':material/delete:'):
             remove_item_row(i)
             st.rerun()  # Rerun to refresh the UI after deletion
 
