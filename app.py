@@ -159,7 +159,8 @@ def round_steel_bar(index):
                                            key=f'diameter_{index}')
 
     with col2:
-        item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0, key=f'length_{index}')
+        item['length'] = st.number_input("Enter the length (m)", value=item['length'], min_value=0.0,
+                                         key=f'length_{index}')
 
     with col3:
         st.write(f'Weight of item {index + 1}')
