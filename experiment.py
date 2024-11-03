@@ -150,7 +150,7 @@ for i in range(len(st.session_state.add_items)):
     if item['item_type'] == 'Rectangular Hollow Section':
         rec_hollow_func(i)
     # Add elif blocks for other item types
-    elif st.session_state.add_items[i]['item_type'] == 'Square Steel Bars':
+    elif item['item_type'] == 'Square Steel Bars':
         square_steel_bar(i)
 
     st.divider()
