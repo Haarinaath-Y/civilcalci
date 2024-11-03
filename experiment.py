@@ -78,7 +78,7 @@ def rec_hollow_func(index):
         return ((b * d) - ((b - (2 * t)) * (d - (2 * t)))) * l / 1000000 * 7850
 
     item = st.session_state.add_items[index]
-    col1, col2, col3, col4, col5, col6, col7 = st.columns([1, 1, 1, 1, 0.5, 0.15])
+    col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 0.5, 0.15])
 
     with col1:
         item['breadth'] = st.number_input("Enter the breadth (mm)", value=item['breadth'], min_value=0.0, key=f'breadth_{index}')
