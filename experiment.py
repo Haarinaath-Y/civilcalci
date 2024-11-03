@@ -115,18 +115,13 @@ for i in range(len(st.session_state.add_items)):
     item_key = f"item_{i}"
     item = st.session_state.add_items[i]
 
-    col_item, col_type, col_delete = st.columns([1, 1, 1])
+    col_item, col_type = st.columns([1, 1])
 
     with col_item:
         item['item_name'] = st.text_input(f"Enter item {i + 1}", value=item['item_name'], key=f"item_name_{item_key}")
 
     with col_type:
         item['item_type'] = st.selectbox('Select the item type', options=item_types, key=f"item_type_{item_key}")
-
-    with col_delete:
-        if st.button("Delete", key=f"delete_{item_key}"):
-            remove_item_row(i)
-            st.rerun()
 
     # Call the correct function based on item type
     if item['item_type'] == 'Rectangular Hollow Section':
@@ -153,6 +148,11 @@ df = DataFrame({
 })
 
 total_sum = round(df["Weight (kg)"].sum(), 2)
+# Replacing zero values with hyphen
+df.replace(0, '-', inplace=True)
+
+st.subheader('MS Steel Calculation Details', divider=True)
+st.dataframe(df, hide_index=True)
 st.subheader(f"Total Weight: {total_sum} kg")
 
 # Generate PDF and display download button
