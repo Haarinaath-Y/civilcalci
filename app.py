@@ -46,7 +46,7 @@ def remove_item(item_id):
     st.session_state.add_items = [item for item in st.session_state.add_items if item["id"] != item_id]
 
 
-# Function to create PDF with enhanced column width for "Item Type"
+# Function to create PDF with borders for each cell
 def create_pdf(dataframe):
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=landscape(letter))
@@ -69,30 +69,40 @@ def create_pdf(dataframe):
     item_type_col_width = 1.5 * ((width - 2 * x_offset) / max_cols)  # 50% wider for "Item Type"
     other_col_width = (width - 2 * x_offset - item_type_col_width) / (max_cols - 1)  # Remaining columns
 
-    # Header
+    # Draw header with borders
+    x_pos = x_offset
     for i, col in enumerate(dataframe.columns[:max_cols]):
         if col == "Item Type":
-            p.drawString(x_offset, y_offset, str(col))
-            x_offset += item_type_col_width  # Move x_offset for wider "Item Type" column
+            col_width = item_type_col_width
         else:
-            p.drawString(x_offset, y_offset, str(col))
-            x_offset += other_col_width
+            col_width = other_col_width
+
+        # Draw header text
+        p.drawString(x_pos + 5, y_offset, str(col))  # Add a slight padding for text
+
+        # Draw header cell border
+        p.rect(x_pos, y_offset - line_height, col_width, line_height)  # Draw border for the cell
+
+        x_pos += col_width
     y_offset -= line_height
 
-    # Reset x_offset for data rows
-    x_offset = 30
-
-    # Rows
+    # Rows with borders
     for _, row in dataframe.iterrows():
+        x_pos = x_offset
         for i, col in enumerate(dataframe.columns[:max_cols]):
             if col == "Item Type":
-                p.drawString(x_offset, y_offset, str(row[col]))
-                x_offset += item_type_col_width
+                col_width = item_type_col_width
             else:
-                p.drawString(x_offset, y_offset, str(row[col]))
-                x_offset += other_col_width
+                col_width = other_col_width
+
+            # Draw cell text
+            p.drawString(x_pos + 5, y_offset, str(row[col]))  # Add a slight padding for text
+
+            # Draw cell border
+            p.rect(x_pos, y_offset - line_height, col_width, line_height)  # Draw border for each cell
+
+            x_pos += col_width
         y_offset -= line_height
-        x_offset = 30  # Reset for the next row
 
     p.save()
     buffer.seek(0)
