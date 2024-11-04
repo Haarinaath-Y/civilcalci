@@ -46,7 +46,7 @@ def remove_item(item_id):
     st.session_state.add_items = [item for item in st.session_state.add_items if item["id"] != item_id]
 
 
-# Function to create PDF
+# Function to create PDF with enhanced column width for "Item Type"
 def create_pdf(dataframe):
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=landscape(letter))
@@ -65,19 +65,34 @@ def create_pdf(dataframe):
     line_height = 20
     max_cols = min(len(dataframe.columns), 8)  # Fit up to 8 columns
 
-    # Column width calculation to fit all columns
-    col_width = (width - 2 * x_offset) / max_cols
+    # Adjusted column widths
+    item_type_col_width = 1.5 * ((width - 2 * x_offset) / max_cols)  # 50% wider for "Item Type"
+    other_col_width = (width - 2 * x_offset - item_type_col_width) / (max_cols - 1)  # Remaining columns
 
     # Header
     for i, col in enumerate(dataframe.columns[:max_cols]):
-        p.drawString(x_offset + i * col_width, y_offset, str(col))
+        if col == "Item Type":
+            p.drawString(x_offset, y_offset, str(col))
+            x_offset += item_type_col_width  # Move x_offset for wider "Item Type" column
+        else:
+            p.drawString(x_offset, y_offset, str(col))
+            x_offset += other_col_width
     y_offset -= line_height
+
+    # Reset x_offset for data rows
+    x_offset = 30
 
     # Rows
     for _, row in dataframe.iterrows():
         for i, col in enumerate(dataframe.columns[:max_cols]):
-            p.drawString(x_offset + i * col_width, y_offset, str(row[col]))
+            if col == "Item Type":
+                p.drawString(x_offset, y_offset, str(row[col]))
+                x_offset += item_type_col_width
+            else:
+                p.drawString(x_offset, y_offset, str(row[col]))
+                x_offset += other_col_width
         y_offset -= line_height
+        x_offset = 30  # Reset for the next row
 
     p.save()
     buffer.seek(0)
