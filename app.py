@@ -4,6 +4,9 @@ from io import BytesIO
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
 import uuid
+import datetime
+
+ct = datetime.datetime.now()
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
                    initial_sidebar_state='collapsed')
@@ -51,7 +54,7 @@ def create_pdf(dataframe):
 
     # Title
     p.setFont("Helvetica-Bold", 14)
-    p.drawString(30, height - 40, "DataFrame Report")
+    p.drawString(30, height - 40, "MS Weight Calculation Report")
 
     # Set font for content
     p.setFont("Helvetica", 10)
@@ -313,6 +316,6 @@ pdf_buffer = create_pdf(df)
 st.download_button(
     label="Download PDF",
     data=pdf_buffer,
-    file_name="dataframe_report.pdf",
+    file_name=f"ms_steel_weight_report_{ct}.pdf",
     mime="application/pdf"
 )
