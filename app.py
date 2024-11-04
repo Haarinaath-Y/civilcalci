@@ -4,9 +4,11 @@ from io import BytesIO
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
 import uuid
-import datetime
+from datetime import datetime
 
-ct = datetime.datetime.now()
+now = datetime.now()
+date_time = now.strftime("%m-%d-%Y_%H:%M:%S")
+
 
 st.set_page_config(page_title="MS Weight Calculator", page_icon=":material/measuring_tape:", layout='wide',
                    initial_sidebar_state='collapsed')
@@ -46,7 +48,6 @@ def remove_item(item_id):
     st.session_state.add_items = [item for item in st.session_state.add_items if item["id"] != item_id]
 
 
-# Function to create PDF with enhanced column width for "Item Type"
 def create_pdf(dataframe):
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=landscape(letter))
@@ -56,8 +57,8 @@ def create_pdf(dataframe):
     p.setFont("Helvetica-Bold", 14)
     p.drawString(30, height - 40, "MS Weight Calculation Report")
 
-    # Set font for content
-    p.setFont("Helvetica", 10)
+    # Set font for regular content
+    p.setFont("Helvetica", 9)
 
     # Layout for columns
     x_offset = 30
@@ -66,33 +67,50 @@ def create_pdf(dataframe):
     max_cols = min(len(dataframe.columns), 8)  # Fit up to 8 columns
 
     # Adjusted column widths
-    item_type_col_width = 1.5 * ((width - 2 * x_offset) / max_cols)  # 50% wider for "Item Type"
-    other_col_width = (width - 2 * x_offset - item_type_col_width) / (max_cols - 1)  # Remaining columns
+    special_col_width = 1.5 * ((width - 2 * x_offset) / max_cols)  # Wider for "Item Type" and "Item Name"
+    remaining_col_width = (width - 2 * x_offset - 2 * special_col_width) / (max_cols - 2)  # Other columns
 
-    # Header
+    # Header with bold text and borders
+    p.setFont("Helvetica-Bold", 9)  # Bold font for headers
+    x_position = x_offset
     for i, col in enumerate(dataframe.columns[:max_cols]):
-        if col == "Item Type":
-            p.drawString(x_offset, y_offset, str(col))
-            x_offset += item_type_col_width  # Move x_offset for wider "Item Type" column
-        else:
-            p.drawString(x_offset, y_offset, str(col))
-            x_offset += other_col_width
+        # Determine column width: apply special width for "Item Type" and "Item Name"
+        col_width = special_col_width if col in ["Item Type", "Item Name"] else remaining_col_width
+
+        # Draw header cell border
+        p.rect(x_position, y_offset - line_height, col_width, line_height)
+
+        # Center the header text
+        text_x = x_position + col_width / 2
+        p.drawCentredString(text_x, y_offset - line_height / 2 - 3, str(col))
+
+        # Update x_position for the next cell
+        x_position += col_width
+
+    # Reset x_position and move y_offset down for the rows
     y_offset -= line_height
 
-    # Reset x_offset for data rows
-    x_offset = 30
-
-    # Rows
+    # Rows with borders
+    p.setFont("Helvetica", 9)  # Regular font for row content
     for _, row in dataframe.iterrows():
+        x_position = x_offset
         for i, col in enumerate(dataframe.columns[:max_cols]):
-            if col == "Item Type":
-                p.drawString(x_offset, y_offset, str(row[col]))
-                x_offset += item_type_col_width
-            else:
-                p.drawString(x_offset, y_offset, str(row[col]))
-                x_offset += other_col_width
+            # Determine column width
+            col_width = special_col_width if col in ["Item Type", "Item Name"] else remaining_col_width
+
+            # Draw cell border
+            p.rect(x_position, y_offset - line_height, col_width, line_height)
+
+            # Center the row text
+            text_x = x_position + col_width / 2
+            text_y = y_offset - line_height / 2 - 3  # Adjust for vertical centering
+            p.drawCentredString(text_x, text_y, str(row[col]))
+
+            # Update x_position for the next cell
+            x_position += col_width
+
+        # Move to the next row
         y_offset -= line_height
-        x_offset = 30  # Reset for the next row
 
     p.save()
     buffer.seek(0)
@@ -331,6 +349,6 @@ pdf_buffer = create_pdf(df)
 st.download_button(
     label="Download PDF",
     data=pdf_buffer,
-    file_name=f"ms_weight_report_{ct}.pdf",
+    file_name=f"ms_weight_report_{date_time}.pdf",
     mime="application/pdf"
 )
