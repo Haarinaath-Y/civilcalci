@@ -316,6 +316,6 @@ pdf_buffer = create_pdf(df)
 st.download_button(
     label="Download PDF",
     data=pdf_buffer,
-    file_name=f"ms_steel_weight_report_{ct}.pdf",
+    file_name=f"ms_weight_report_{ct}.pdf",
     mime="application/pdf"
 )
