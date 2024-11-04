@@ -347,8 +347,9 @@ st.success(f"Total Weight of all items: **{total_sum} kg**")
 # Button to generate and download PDF
 pdf_buffer = create_pdf(df)
 st.download_button(
-    label="Download PDF",
+    label="Download as PDF",
     data=pdf_buffer,
     file_name=f"ms_weight_report_{date_time}.pdf",
-    mime="application/pdf"
+    mime="application/pdf",
+    icon=':material/download_for_offline:'
 )
