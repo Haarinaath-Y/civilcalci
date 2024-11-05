@@ -147,6 +147,7 @@ def rec_hollow_func(index):
         st.text(item['weight'])
 
     with col6:
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
         if st.button(":material/delete:", key=f"remove_{index}"):
             remove_item(item["id"])
             st.rerun()
