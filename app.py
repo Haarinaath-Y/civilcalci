@@ -48,7 +48,7 @@ def remove_item(item_id):
     st.session_state.add_items = [item for item in st.session_state.add_items if item["id"] != item_id]
 
 
-def create_pdf(dataframe):
+def create_pdf(dataframe, total_sum):
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=landscape(letter))
     width, height = landscape(letter)
@@ -111,6 +111,8 @@ def create_pdf(dataframe):
 
         # Move to the next row
         y_offset -= line_height
+
+    p.drawString(30, height - y_offset, f"Total Weight: {total_sum}")
 
     p.save()
     buffer.seek(0)
@@ -346,7 +348,7 @@ st.dataframe(df, hide_index=True, use_container_width=True)
 st.success(f"Total Weight of all items: **{total_sum} kg**")
 
 # Button to generate and download PDF
-pdf_buffer = create_pdf(df)
+pdf_buffer = create_pdf(df, total_sum)
 st.download_button(
     label="Download as PDF",
     data=pdf_buffer,
