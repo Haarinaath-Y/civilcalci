@@ -112,7 +112,7 @@ def create_pdf(dataframe, total_sum):
         # Move to the next row
         y_offset -= line_height
 
-    p.drawString(30, y_offset - 20, f"Total Weight: {total_sum}")
+    p.drawString(30, y_offset - 20, f"**Total Weight**: {total_sum} kg")
 
     p.save()
     buffer.seek(0)
